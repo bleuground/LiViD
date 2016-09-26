@@ -100,7 +100,24 @@ class CameraView: UIViewController,AVCaptureFileOutputRecordingDelegate {
     }
     
     //MARK: - Long Press Gesture Action
+    var state : Bool = false
+    var timer = Timer()
+
+    @IBOutlet weak var progressBar: UIProgressView!
+    func changeState() {
+        var count = 0
+        while count < 100 {
+            progressBar.setProgress(Float(count), animated: true)
+            
+            count += 1
+            
+        }
+        timer.invalidate()
+        state = true
+        
+    }
     
+
     func action(_ gestureRecognizer:UILongPressGestureRecognizer) {
         if (lpgr!.state == UIGestureRecognizerState.began) {
             print("Began")
@@ -118,11 +135,15 @@ class CameraView: UIViewController,AVCaptureFileOutputRecordingDelegate {
             UserDefaults.standard.set(url, forKey: "videoURL")
             UserDefaults.standard.synchronize()
             
+            
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(CameraView.changeState), userInfo: nil, repeats: true)
         }
         
-        if (lpgr!.state == UIGestureRecognizerState.ended) {
+        if (lpgr!.state == UIGestureRecognizerState.ended) || (state == true){
             StartStopOutlet.setImage(UIImage(named: "record_bttn"), for: UIControlState())
             print("Ended")
+            timer.invalidate()
+
             videoOutput!.stopRecording()
             
             
@@ -132,7 +153,7 @@ class CameraView: UIViewController,AVCaptureFileOutputRecordingDelegate {
             let outputURl = self.url!.deletingLastPathComponent().appendingPathComponent("video\(format.string(from: Date())).mp4")
             print("\(outputURl)")
             Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(CameraView.doCompress), userInfo: nil, repeats: false)
-            
+            state == false
             performSegue(withIdentifier: "segueTest", sender: nil)
         }
     }
