@@ -120,6 +120,59 @@
             </objects>
             <point key="canvasLocation" x="-403" y="604"/>
         </scene>
+        <!--Pass Reset View Controller-->
+        <scene sceneID="V8U-UT-yJ7">
+            <objects>
+                <viewController id="dNN-Gn-SGd" customClass="PassResetViewController" customModule="LiViD" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PvG-Zh-kni"/>
+                        <viewControllerLayoutGuide type="bottom" id="MA9-lb-nqx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BlR-FM-boR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Logo_Livid" translatesAutoresizingMaskIntoConstraints="NO" id="Vtq-nC-uoV">
+                                <frame key="frameInset" minX="65" minY="90" width="245" height="206"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Vtq-nC-uoV" secondAttribute="height" multiplier="37:31" id="Cqi-iF-KNv"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter your email and hit return" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4NF-9R-Obm">
+                                <frame key="frameInset" minX="68" minY="323" width="239" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name@mail.com" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gkx-9q-S0I">
+                                <frame key="frameInset" minX="68" minY="352" width="239" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="A password reset link will be sent to the email entered." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3JD-ok-VFg">
+                                <frame key="frameInset" minX="16" minY="426" width="343" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Vtq-nC-uoV" firstAttribute="width" secondItem="Vtq-nC-uoV" secondAttribute="height" multiplier="37:31" id="Scx-ud-pB5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="usersEmail" destination="Gkx-9q-S0I" id="94X-Ck-WJ6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GmG-2C-Ttl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="78.5" y="344.5"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="yPP-Xm-tGp">
             <objects>
@@ -959,7 +1012,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bsv-8X-eSS">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myProtoCell" id="eEK-fE-hLS" customClass="TableCellTableViewCell" customModule="LiViD" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="myProtoCell" id="eEK-fE-hLS" customClass="TableCellTableViewCell" customModule="LiViD" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eEK-fE-hLS" id="BhH-UG-8Cn">
@@ -1027,8 +1080,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Mqa-h6-gwd"/>
-        <segue reference="zZN-Px-shT"/>
-        <segue reference="mzK-Gd-wWf"/>
+        <segue reference="Yue-w0-PKh"/>
         <segue reference="neI-0u-czu"/>
+        <segue reference="mzK-Gd-wWf"/>
     </inferredMetricsTieBreakers>
 </document>
