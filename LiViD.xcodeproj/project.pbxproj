@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		459993026EA23D177AB49F05 /* Pods_LiViD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FF79233E29A534E02BAFF6 /* Pods_LiViD.framework */; };
 		466F27601D996B11001A9D5A /* MapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466F275F1D996B11001A9D5A /* MapHelper.swift */; };
+		46A80D611D99B909005DF186 /* ParseDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A80D601D99B909005DF186 /* ParseDataManager.swift */; };
+		46D1EEE81D99A1F6006F674D /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D1EEE71D99A1F6006F674D /* CommonUtils.swift */; };
 		C98570B11D91ED5B0057FF49 /* TableCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98570B01D91ED5B0057FF49 /* TableCellTableViewCell.swift */; };
 		C98570B31D91F30D0057FF49 /* AcceptFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98570B21D91F30D0057FF49 /* AcceptFriendsViewController.swift */; };
 		C98570B51D91F31D0057FF49 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98570B41D91F31D0057FF49 /* FriendsListViewController.swift */; };
@@ -51,6 +53,8 @@
 /* Begin PBXFileReference section */
 		02FF79233E29A534E02BAFF6 /* Pods_LiViD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiViD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		466F275F1D996B11001A9D5A /* MapHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapHelper.swift; sourceTree = "<group>"; };
+		46A80D601D99B909005DF186 /* ParseDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseDataManager.swift; sourceTree = "<group>"; };
+		46D1EEE71D99A1F6006F674D /* CommonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtils.swift; sourceTree = "<group>"; };
 		94CDF69C17F4D41C187D6915 /* Pods-LiViD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiViD.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiViD/Pods-LiViD.release.xcconfig"; sourceTree = "<group>"; };
 		C98570B01D91ED5B0057FF49 /* TableCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCellTableViewCell.swift; sourceTree = "<group>"; };
 		C98570B21D91F30D0057FF49 /* AcceptFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptFriendsViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				466F275F1D996B11001A9D5A /* MapHelper.swift */,
+				46D1EEE71D99A1F6006F674D /* CommonUtils.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -122,6 +127,14 @@
 				D9AD86C41CF6CB3E0068D00D /* ViewController.swift */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		46D1EEE61D99A1D8006F674D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				46A80D601D99B909005DF186 /* ParseDataManager.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		7E9CCE3FAC37C22B35BF49B7 /* Frameworks */ = {
@@ -176,6 +189,7 @@
 		D9AD86C11CF6CB3E0068D00D /* LiViD */ = {
 			isa = PBXGroup;
 			children = (
+				46D1EEE61D99A1D8006F674D /* Models */,
 				466F27611D997C64001A9D5A /* View Controllers */,
 				466F275C1D9969A0001A9D5A /* Helpers */,
 				D9AD86C21CF6CB3E0068D00D /* AppDelegate.swift */,
@@ -455,6 +469,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9052E691D2EF87700BDB466 /* FriendsViewController.swift in Sources */,
+				46A80D611D99B909005DF186 /* ParseDataManager.swift in Sources */,
+				46D1EEE81D99A1F6006F674D /* CommonUtils.swift in Sources */,
 				D97CAEEB1D1378310007CDF9 /* PostViewController.swift in Sources */,
 				C98570B31D91F30D0057FF49 /* AcceptFriendsViewController.swift in Sources */,
 				D9FAA00D1D2348A300275D3F /* SignUpViewController.swift in Sources */,

@@ -16,6 +16,7 @@ import CoreLocation
 import AddressBookUI
 import MapKit
 import AddressBook
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -27,43 +28,10 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-
-extension Double {
-    /// Rounds the double to decimal places value
-    mutating func roundToPlaces(places:Int) -> Double {
-        var places = places
-        let divisor = pow(10.0, Double(places))
-        return (self * divisor).rounded() / divisor
-    }
-}
-
 class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var viewMap: GMSMapView!
     var placesClient: GMSPlacesClient?
     
-    internal class Alert: NSObject {
-        
-        class func Warning(_ delegate: UIViewController, message: String) {
-            let alert = UIAlertController(title: "Warning", message: message, preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-            delegate.present(alert, animated: true, completion: nil)
-        }
-        
-        
-    }
-    
-   // @IBOutlet weak var snapNext: UIButton!
-    
-    @IBAction func tryPost(_ sender: AnyObject) {
-        if inNewport() == true {
-            performSegue(withIdentifier: "Post", sender: nil)
-            
-        }else {
-         //   Alert.Warning(self,message: "Sorry, you cannot post from your current location at this time.")
-            performSegue(withIdentifier: "Post", sender: nil)
-
-        }
-    }
     var url : URL?
     var videoData : Data?
     var doUpload : Bool?
@@ -75,10 +43,51 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     var x : Int?
     var z : Int?
-
-
+    
+    var street : String?
+    var place : GMSPlace?
+    var uploadedVideo : PFObject?
+    
     @IBOutlet var searchBar: UISearchBar!
     
+    let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
+    let apikey = "AIzaSyAWcaZdfxxi3ulpyRK__k-6gBU_9discX0"
+    
+    var markerLong : Double = 0.0
+    var markerLat : Double = 0.0
+    var file : PFFile?
+
+    var marker : GMSMarker!
+    var markers : [CLLocationCoordinate2D] = []
+    var markersID : [String] = []
+    let group: DispatchGroup = DispatchGroup();
+    
+    
+    var mp4 : Data?
+    var downloadedurl : String?
+    
+    var postsLat : Double?
+    var postsLong : Double?
+    var thumbnail : UIImage?
+    var userofVideo : AnyObject?
+    var hour : AnyObject?
+    var minutes : AnyObject?
+    var streetName : AnyObject?
+    
+    var tempLat : Double?
+    var tempLong : Double?
+    var tempCoordinates : CLLocationCoordinate2D?
+    
+    var location : CLLocation?
+    var camera : GMSCameraPosition?
+    
+    var allIcons: [UIImage] = []
+    
+    @IBOutlet weak var Friends: UIButton!
+    @IBOutlet weak var MyCity: UIButton!
+
+    
+    //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -97,13 +106,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         //let parameters : [NSObject : AnyObject]
         let parameters = ["TargetFriendID" : name]
         
-        /*PFCloud.callFunctionInBackground("AddFriendRequest", withParameters: parameters) { results, error in
-            if error != nil {
-                //Your error handling here
-            } else {
-                print(results)
-            }
-        }*/
         print(url)
         //print(videoData)
         print(doUpload)
@@ -125,13 +127,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             
         }
         
-        self.locationManager.requestWhenInUseAuthorization()
+        setupLocation()
         
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
         //placesClient = GMSPlacesClient()
         var gmsPlace : GMSPlace?
         placesClient!.currentPlace { (placeLikelihoods, error) -> Void in
@@ -182,44 +179,47 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                 
             });
         
-        
-        
-        
         //viewMap.bringSubviewToFront(snapNext)
-        
-        
     }
     
-    let myStreet : String? = nil
-    //let city : String?
-    let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
-    let apikey = "AIzaSyAWcaZdfxxi3ulpyRK__k-6gBU_9discX0"
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
     
-    
-    /*func getAddressForLatLng(latitude: String, longitude: String) {
-        let url = NSURL(string: "\(baseUrl)latlng=\(latitude),\(longitude)&key=\(apikey)")
-        let data = NSData(contentsOfURL: url!)
-        let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! NSDictionary
-        if let result = json["results"] as? NSArray{
-            let results = result[0]
-            if let address = results["address_components"] as? NSArray {
-                let number = address[0]["short_name"] as! String
-                myStreet = address[1]["short_name"] as! String
-                city = address[2]["short_name"] as! String
-                let state = address[4]["short_name"] as! String
-                let zip = address[6]["short_name"] as! String
-                print("\n\(number) \(myStreet), \(city), \(state) \(zip)")
-                
-            }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
+        if (segue.identifier == "playerSegue") {
+            let svc = segue.destination as! PlayVideoViewController
+            svc.MarkerLat = markerLat
+            svc.MarkerLong = markerLong
+            svc.MarkerNum = x!
+            //svc.VideoData = videoData
+            svc.Url = downloadedurl
+            svc.MP4 = mp4
+            svc.streetname = streetName
+            svc.minutes = minutes
+            svc.hour = hour
+            svc.userofVideo = userofVideo
+            
+            print(url)
+            
         }
     }
-     */  var location : CLLocation?
-    var camera : GMSCameraPosition?
+
+    var whatcity : String?
+    func inNewport() -> Bool{
+        return whatcity == "Newport Beach"
+    }
+}
+
+//MARK: Maps and CLLocation
+extension ViewController {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         var lat = manager.location!.coordinate.latitude as Double
         var long = manager.location!.coordinate.longitude as Double
         location = CLLocation(latitude: lat, longitude: long)
-
+        
         // let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         //print("locations = \(locValue.latitude) \(locValue.longitude)")
         gpsCoordinates = CLLocationCoordinate2DMake(lat.roundToPlaces(places: 6), long.roundToPlaces(places: 6))
@@ -235,10 +235,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         viewMap.settings.myLocationButton = false
         
         /*let marker = GMSMarker()
-        marker.position = self.gpsCoordinates!
-        marker.title = "Newport Beach"
-        marker.snippet = "California"
-        marker.map = viewMap*/
+         marker.position = self.gpsCoordinates!
+         marker.title = "Newport Beach"
+         marker.snippet = "California"
+         marker.map = viewMap*/
         locationManager.stopUpdatingLocation()
         print(viewMap.delegate)
         
@@ -257,164 +257,167 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             }
         })
     }
-    
-    
-    var street : String?
-    var place : GMSPlace?
-    var uploadedVideo : PFObject?
-    func Upload() {
-        
-        let name = url!.lastPathComponent
-        //let image = self.thumbnailForVideoAtURL(NSURL(string:name)!)
-        let image = self.thumbnailForVideoAtURL(url!)
-        
-        //marker.icon = image
 
+    func setupLocation() {
+        self.locationManager.requestWhenInUseAuthorization()
         
-        placesClient!.currentPlace { (placeLikelihoods, error) -> Void in
-            guard error == nil else {
-                print("Current Place error: \(error!.localizedDescription)")
-                return
-            }
-            /*let file = PFFile(name:"\(self.url)", data:self.videoData!)
-             print(self.dataPath)
-             print(path)*/
-            print(name)
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    @objc(mapView:didTapMarker:) func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        if z == 0 {
+            print("\(marker) tapped")
             
-            let url = UserDefaults.standard.url(forKey: "videoURL")
-            let videoData = try? Data(contentsOf: url!)
-            let thumbnailData : Data = UIImageJPEGRepresentation(image!, 1)!
             
-            let file = PFFile(name: name, data: videoData!)
-            let fileThumbnail = PFFile(name: "Thumbnail", data: thumbnailData)
-            var uploadedVideo : PFObject?
-            if let placeLikelihoods = placeLikelihoods {
-                for likelihood in placeLikelihoods.likelihoods {
-                    self.place = likelihood.place
-                    print("Current Place name \(self.place!.name) at likelihood \(likelihood.likelihood)")
-                    print("Current Place address \(self.place!.formattedAddress)")
-                    print("Current Place attributions \(self.place!.attributions)")
-                    print("Current PlaceID \(self.place!.placeID)")
+            
+            var lat = marker.position.latitude as Double
+            var long = marker.position.longitude as Double
+            
+            if (markers[x!].latitude.roundToPlaces(places: 6) == lat.roundToPlaces(places: 6) && markers[x!].longitude.roundToPlaces(places: 6) == long.roundToPlaces(places: 6))
+            {
+                downloadVideo(self.markersID[x!]) {
+                    PFFile in
+                    print(self.file)
                     
-                    print(self.url)
-                }
-                
-                
-                uploadedVideo = PFObject(className:"UploadedVideoCurrent")
-                var lat = self.locationManager.location!.coordinate.latitude as Double
-                var lon = self.locationManager.location!.coordinate.longitude as Double
-                
-                let latPost = lat.roundToPlaces(places: 6)
-                let longPost = lon.roundToPlaces(places: 6)
-                
-                let date = Date()
-                let calendar = Calendar.current
-                let components = (calendar as NSCalendar).components([ .hour, .minute, .second], from: date)
-                let hour = components.hour
-                let minutes = components.minute
-                var addressComponents: [String : String]?
-                
-                let geoCoder = CLGeocoder()
-                let location = CLLocation(latitude: latPost, longitude: longPost)
-                
-                geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
-                    
-                    // Place details
-                    var placeMark: CLPlacemark!
-                    placeMark = placemarks?[0]
-                    
-                    // Address dictionary
-                    print(placeMark.addressDictionary)
-                    
-                    // Location name
-                    if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
-                        print(locationName)
-                    }
-                    
-                    // Street address
-                    if let streetaddress = placeMark.addressDictionary!["Thoroughfare"] as? NSString {
-                        print(streetaddress)
-                        self.street = streetaddress as String
-                        uploadedVideo!["GPS"] = PFGeoPoint(latitude: latPost, longitude:longPost)
-                        uploadedVideo!["VideoFile"] = file
-                        uploadedVideo!["typeofPost"] = self.FriendsOrPublic
-                        uploadedVideo!["Thumbnail"] = fileThumbnail
-                        uploadedVideo!["User"] = PFUser.current()?.username
-                        uploadedVideo!["Location"] = self.street
-                        uploadedVideo!["Hour"] = hour
-                        uploadedVideo!["minutes"] = minutes
-                        print("gotthisfar")
-                        uploadedVideo!.saveInBackground()
-                        file!.saveInBackground { (success: Bool, error: Error?) -> Void in self.fileSaved()
-                    
-                        }
-                    }
-                    
-                    // City
-                    if let city = placeMark.addressDictionary!["City"] as? NSString {
-                        print(city)
-                        self.whatcity = city as String
+                    print("ran")
+                    if self.file != nil {
+                        self.performSegue(withIdentifier: "playerSegue", sender: nil)
+                        print("a")
+                        self.file!.getDataInBackground(block: { (data, error) in
+                            if error == nil
+                            {
+                                self.mp4 = data
+                                print(data)
+                                print(self.mp4)
+                                print("a")
+                            }
+                        })
                         
+                    } else {
+                        print("not dispatched")
                     }
-                    
-                    // Zip code
-                    if let zip = placeMark.addressDictionary!["ZIP"] as? NSString {
-                        print(zip)
-                    }
-                    
-                    // Country
-                    if let country = placeMark.addressDictionary!["Country"] as? NSString {
-                        print(country)
-                    }
-                })
-                
-                
+                }
             }
             
-            
-          
+        } else {
+            print("not equal")
         }
         
-    }
-    func fileSaved() {
-        print("File has been saved")
-        friendsOrPublic()
+        //markerLat = lat.roundToPlaces(6)
+        //markerLong = long.roundToPlaces(6)
+        //self.marker = GMSMarker(position: markers[2])
         
-    }
-    var whatcity : String?
-    func inNewport() -> Bool{
-        if whatcity != "Newport Beach" {
-            
-    
-        return false
-        
-        }else {
         
         return true
+    }
 
-        }
-        
-    }
-    func friendsOrPublic() {
-        if FriendsOrPublic == "Friends" {
-            DownloadPublic()
-        }else if FriendsOrPublic == "MyCity" {
-            DownloadFriends()
-        }else {
-            DownloadPublic()
-        }
-    }
+}
+
+//MARK: Actions
+extension ViewController {
     @IBAction func MyCity(_ sender: AnyObject) {
         DownloadPublic()
     }
-    var marker : GMSMarker!
-    var markers : [CLLocationCoordinate2D] = []
-    var markersID : [String] = []
-    let group: DispatchGroup = DispatchGroup();
-    //let groupVideo: dispatch_group_t = dispatch_group_create();
+
     
-    @IBOutlet weak var Friends: UIButton!
-    @IBOutlet weak var MyCity: UIButton!
+    @IBAction func Friends(_ sender: AnyObject) {
+        DownloadFriends()
+    }
+    
+    @IBAction func snapNext(_ sender: AnyObject) {
+        if self.z != 1{
+            x = x! + 1
+            var count = markers.count
+            print("This is the markers count: \(markers.count)")
+            print(x)
+            if x < markers.count {
+                
+                self.viewMap.camera = GMSCameraPosition.camera(withTarget: self.markers[x!], zoom: 16.9)
+            } else {
+                self.viewMap.camera = self.camera!
+                x = 0
+            }
+            //viewMap.camera = marker.userData[0]
+        }else{
+            self.viewMap.camera = self.camera!
+            
+        }
+        var count = 0
+        if markers.count > 3 {
+            while count < 3 {
+                
+                
+                self.marker = GMSMarker(position: markers[x!])
+                print(self.marker)
+                print(markers[x!])
+                //downloadVideo(marker)
+                count = count + 1
+                
+                
+            }
+        }else if markers.count == 3 {
+            
+            
+            
+            self.marker = GMSMarker(position: markers[2])
+            print(self.marker)
+            print(markers[2])
+            //downloadVideo(marker)
+            self.marker = GMSMarker(position: markers[1])
+            print(self.marker)
+            print(markers[1])
+            //downloadVideo(marker)
+            self.marker = GMSMarker(position: markers[0])
+            print(self.marker)
+            print(markers[0])
+            //downloadVideo(marker)
+            
+            
+        }else if markers.count == 2{
+            self.marker = GMSMarker(position: markers[1])
+            print(self.marker)
+            print(markers[1])
+            //downloadVideo(marker)
+            self.marker = GMSMarker(position: markers[0])
+            print(self.marker)
+            print(markers[0])
+            //downloadVideo(marker)
+            
+            
+        }else if markers.count == 1 {
+            self.marker = GMSMarker(position: markers[0])
+            print(self.marker)
+            print(markers[0])
+            //downloadVideo(marker)
+        }else {
+            
+        }
+        
+        
+    }
+    
+
+    @IBAction func tryPost(_ sender: AnyObject) {
+        if inNewport() == true {
+            performSegue(withIdentifier: "Post", sender: nil)
+            
+        } else {
+            //   Alert.Warning(self,message: "Sorry, you cannot post from your current location at this time.")
+            performSegue(withIdentifier: "Post", sender: nil)
+            
+        }
+    }
+    
+    
+
+}
+
+//MARK: Network Operations
+extension ViewController {
     func DownloadPublic() {
         viewMap.clear()
         //MyCity.image = UIImage(named: "")
@@ -423,7 +426,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         var query = PFQuery(className:"UploadedVideoCurrent")
         
         self.group.enter();
-
+        
         //        query.whereKey("GPS", equalTo: "ChIJTbSOh8Pf3IARt311y2Wqspc")
         query.whereKey("typeofPost", equalTo: "Public")
         query.findObjectsInBackground {
@@ -431,70 +434,63 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             
             if error == nil {
                 var y : Int = 0
-
+                
                 // The find succeeded.
                 print("Successfully retrieved \(objects!.count) coordinates.")
                 // Do something with the found objects
                 if objects!.count != 0 {
                     self.z = 0
-                if let objects = objects {
-                    for object in objects {
-                        
-                        print(object.object(forKey: "GPS"))
-                        let objectId = object.objectId! as String
-                        var postsLat = (object.object(forKey: "GPS")! as AnyObject).latitude as Double
-                        var postsLong = (object.object(forKey: "GPS")! as AnyObject).longitude as Double
-                        let lat = postsLat.roundToPlaces(places: 6)
-                        let long = postsLong.roundToPlaces(places: 6)
-                        let position: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: lat, longitude:long)
-                        
-                        self.marker = GMSMarker(position: position)
-                        let image = UIImage(named: "bubble.png")
-                        let backIcon = UIImage(data: UIImagePNGRepresentation(image!)!, scale:
-                        5)
-
-                        self.marker.icon = backIcon
-                        //self.thumbnail == object.objectForKey("GPS")! as! PFFile
-                        /*if 1 == 1 {
-                            self.thumbnail?.getDataInBackgroundWithBlock({
-                                (imageData: NSData!, error: NSError!) -> Void in
-                                if (error == nil) {
-                                    self.thumbnail = UIImage(data:imageData)
-                                }
-                            })
-                        }*/
-                        
-                        if let userPicture = object.value(forKey: "GPS") as? PFFile {
-                            userPicture.getDataInBackground {
-                                (imageData: Data?, error: Error?) -> Void in
-                                
-                                if error == nil {
-                                    self.thumbnail = UIImage(data:imageData!)
-                                    //self.ImageArray.append(image)
-                                }else{
-                                    print("Error: \(error)")
+                    if let objects = objects {
+                        for object in objects {
+                            
+                            print(object.object(forKey: "GPS"))
+                            let objectId = object.objectId! as String
+                            var postsLat = (object.object(forKey: "GPS")! as AnyObject).latitude as Double
+                            var postsLong = (object.object(forKey: "GPS")! as AnyObject).longitude as Double
+                            let lat = postsLat.roundToPlaces(places: 6)
+                            let long = postsLong.roundToPlaces(places: 6)
+                            let position: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: lat, longitude:long)
+                            
+                            self.marker = GMSMarker(position: position)
+                            let image = UIImage(named: "bubble.png")
+                            let backIcon = UIImage(data: UIImagePNGRepresentation(image!)!, scale:
+                                5)
+                            
+                            self.marker.icon = backIcon
+                            //self.thumbnail == object.objectForKey("GPS")! as! PFFile
+                            /*if 1 == 1 {
+                             self.thumbnail?.getDataInBackgroundWithBlock({
+                             (imageData: NSData!, error: NSError!) -> Void in
+                             if (error == nil) {
+                             self.thumbnail = UIImage(data:imageData)
+                             }
+                             })
+                             }*/
+                            
+                            if let userPicture = object.value(forKey: "GPS") as? PFFile {
+                                userPicture.getDataInBackground {
+                                    (imageData: Data?, error: Error?) -> Void in
+                                    
+                                    if error == nil {
+                                        self.thumbnail = UIImage(data:imageData!)
+                                        //self.ImageArray.append(image)
+                                    }else{
+                                        print("Error: \(error)")
+                                    }
                                 }
                             }
+                            
+                            //self marker.icon = [self image:marker.icon scaledToSize:CGSizeMake(3.0f, 3.0f)];
+                            
+                            self.markers.append(position)
+                            self.markersID.append(objectId)
+                            
+                            self.marker.map = self.viewMap
+                            
+                            y += 1
+                            print(y)
                         }
-                        
-                        //self marker.icon = [self image:marker.icon scaledToSize:CGSizeMake(3.0f, 3.0f)];
-
-                        self.markers.append(position)
-                        self.markersID.append(objectId)
-
-                        self.marker.map = self.viewMap
-                        
-                        
-                        
-                        
-                        
-                        
-                        //print(self.marker.userData)
-                        
-                        y += 1
-                        print(y)
                     }
-                }
                 } else {
                     self.z = 1
                 }
@@ -506,9 +502,88 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             
         }
     }
+
     
-    @IBAction func Friends(_ sender: AnyObject) {
-        DownloadFriends()
+    func fileSaved() {
+        print("File has been saved")
+        friendsOrPublic()
+    }
+    
+    func friendsOrPublic() {
+        if FriendsOrPublic == "Friends" {
+            DownloadPublic()
+        }else if FriendsOrPublic == "MyCity" {
+            DownloadFriends()
+        }else {
+            DownloadPublic()
+        }
+    }
+    
+    func downloadVideo(_ markerID : String, completion: @escaping (PFFile) -> Void)
+    {
+        self.group.enter();
+        
+        print("printing")
+        print(markerLat)
+        print(markerLong)
+        print(postsLat)
+        print(postsLong)
+        print("A")
+        let query = PFQuery(className:"UploadedVideoCurrent")
+        print("b")
+        print(markerID)
+        
+        //query.whereKey("GPS", equalTo: PFGeoPoint(latitude: markerLat, longitude: markerLong))
+        query.whereKey("objectId", equalTo: "\(markerID)")
+        query.findObjectsInBackground { (objects, error) in
+            print("c")
+            if(error == nil)
+            {
+                print("d")
+                
+                for object in objects!
+                {
+                    
+                    
+                    print("made it")
+                    
+                    self.file = (object.object(forKey: "VideoFile") as! PFFile)
+                    //self.thumbnail = (object.objectForKey("Thumbnail") as! PFFile)
+                    self.userofVideo = object.object(forKey: "User") as AnyObject?
+                    self.hour = object.object(forKey: "Hour") as AnyObject?
+                    self.minutes = object.object(forKey: "minutes") as AnyObject?
+                    self.streetName = object.object(forKey: "Location") as AnyObject?
+                    print(self.file!.url)
+                    print(self.file!)
+                    self.downloadedurl = self.file!.url
+                    
+                    
+                    self.tempLat = (object.object(forKey: "GPS")! as AnyObject).latitude as Double
+                    self.tempLong = (object.object(forKey: "GPS")! as AnyObject).longitude as Double
+                    
+                    self.tempCoordinates = CLLocationCoordinate2D(latitude: self.tempLat! as CLLocationDegrees, longitude: self.tempLong! as CLLocationDegrees)
+                    //print(tempLong)
+                    //print(tempLat)
+                    
+                    //print(self.postsLong)
+                    //print(self.postsLat)
+                    //var coordinates = [postsLat, postsLong, x]
+                }
+                
+            }
+            else
+            {
+                print("didn't make it")
+                print(error)
+            }
+            print(self.file)
+            
+            completion(self.file!)
+            
+        }
+        
+        self.group.leave();
+        
     }
     
     func DownloadFriends() {
@@ -547,286 +622,96 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
 
-    var mp4 : Data?
-    var downloadedurl : String?
-    
-    var postsLat : Double?
-    var postsLong : Double?
-    var thumbnail : UIImage?
-    var userofVideo : AnyObject?
-    var hour : AnyObject?
-    var minutes : AnyObject?
-    var streetName : AnyObject?
-    
-    var tempLat : Double?
-    var tempLong : Double?
-    var tempCoordinates : CLLocationCoordinate2D?
-    
-    //var objectId : String?
-    func downloadVideo(_ markerID : String, completion: @escaping (PFFile) -> Void)
-    {
-        self.group.enter();
-
-        print("printing")
-        print(markerLat)
-        print(markerLong)
-        print(postsLat)
-        print(postsLong)
-        print("A")
-        let query = PFQuery(className:"UploadedVideoCurrent")
-        print("b")
-        print(markerID)
+    func Upload() {
         
-        //query.whereKey("GPS", equalTo: PFGeoPoint(latitude: markerLat, longitude: markerLong))
-        query.whereKey("objectId", equalTo: "\(markerID)")
-        query.findObjectsInBackground { (objects, error) in
-            print("c")
-            if(error == nil)
-            {
-                print("d")
-                
-                for object in objects!
-                {
+        let name = url!.lastPathComponent
+        //let image = self.thumbnailForVideoAtURL(NSURL(string:name)!)
+        let image = thumbnailForVideoAtURL(url!)
+        
+        //marker.icon = image
+        
+        
+        placesClient!.currentPlace { (placeLikelihoods, error) -> Void in
+            guard error == nil else {
+                print("Current Place error: \(error!.localizedDescription)")
+                return
+            }
+            /*let file = PFFile(name:"\(self.url)", data:self.videoData!)
+             print(self.dataPath)
+             print(path)*/
+            print(name)
+            
+            let url = UserDefaults.standard.url(forKey: "videoURL")
+            let videoData = try? Data(contentsOf: url!)
+            let thumbnailData : Data = UIImageJPEGRepresentation(image!, 1)!
+            
+            let file = PFFile(name: name, data: videoData!)
+            let fileThumbnail = PFFile(name: "Thumbnail", data: thumbnailData)
+            fileThumbnail?.saveInBackground()
+            var uploadedVideo : PFObject?
+            if let placeLikelihoods = placeLikelihoods {
+                for likelihood in placeLikelihoods.likelihoods {
+                    self.place = likelihood.place
+                    print("Current Place name \(self.place!.name) at likelihood \(likelihood.likelihood)")
+                    print("Current Place address \(self.place!.formattedAddress)")
+                    print("Current Place attributions \(self.place!.attributions)")
+                    print("Current PlaceID \(self.place!.placeID)")
                     
-                    
-                   print("made it")
-                   
-                    self.file = (object.object(forKey: "VideoFile") as! PFFile)
-                    //self.thumbnail = (object.objectForKey("Thumbnail") as! PFFile)
-                    self.userofVideo = object.object(forKey: "User") as AnyObject?
-                    self.hour = object.object(forKey: "Hour") as AnyObject?
-                    self.minutes = object.object(forKey: "minutes") as AnyObject?
-                    self.streetName = object.object(forKey: "Location") as AnyObject?
-                    print(self.file!.url)
-                    print(self.file!)
-                    self.downloadedurl = self.file!.url
- 
-                    
-                    self.tempLat = (object.object(forKey: "GPS")! as AnyObject).latitude as Double
-                    self.tempLong = (object.object(forKey: "GPS")! as AnyObject).longitude as Double
-                    
-                    self.tempCoordinates = CLLocationCoordinate2D(latitude: self.tempLat! as CLLocationDegrees, longitude: self.tempLong! as CLLocationDegrees)
-                    //print(tempLong)
-                    //print(tempLat)
-                    
-                    //print(self.postsLong)
-                    //print(self.postsLat)
-                    //var coordinates = [postsLat, postsLong, x]
+                    print(self.url)
                 }
                 
-            }
-            else
-            {
-                print("didn't make it")
-                print(error)
-            }
-            print(self.file)
-            
-            completion(self.file!)
+                
+                uploadedVideo = PFObject(className:"UploadedVideoCurrent")
+                var lat = self.locationManager.location!.coordinate.latitude as Double
+                var lon = self.locationManager.location!.coordinate.longitude as Double
+                
+                let latPost = lat.roundToPlaces(places: 6)
+                let longPost = lon.roundToPlaces(places: 6)
+                
+                let date = Date()
+                let calendar = Calendar.current
+                let components = (calendar as NSCalendar).components([ .hour, .minute, .second], from: date)
+                let hour = components.hour
+                let minutes = components.minute
+                var addressComponents: [String : String]?
+                
+                let geoCoder = CLGeocoder()
+                let location = CLLocation(latitude: latPost, longitude: longPost)
+                
+                geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+                    
+                    // Place details
+                    var placeMark: CLPlacemark!
+                    placeMark = placemarks?[0]
 
-        }
-       
-        self.group.leave();
-
-    }
-    var markerLong : Double = 0.0
-    var markerLat : Double = 0.0
-    var file : PFFile?
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        if z == 0 {
-        print("\(marker) tapped")
-        
-            
-        
-        var lat = marker.position.latitude as Double
-        var long = marker.position.longitude as Double
-            
-        if (markers[x!].latitude.roundToPlaces(places: 6) == lat.roundToPlaces(places: 6) && markers[x!].longitude.roundToPlaces(places: 6) == long.roundToPlaces(places: 6))
-        {
-            downloadVideo(self.markersID[x!]) {
-                PFFile in
-                    print(self.file)
-
-                    print("ran")
-                    if self.file != nil {
-                        self.performSegue(withIdentifier: "playerSegue", sender: nil)
-                        print("a")
-                        self.file!.getDataInBackground(block: { (data, error) in
-                            if error == nil
-                            {
-                                self.mp4 = data
-                                print(data)
-                                print(self.mp4)
-                                print("a")
-                            }
-                        })
-                        
-                    }else {
-                        print("not dispatched")
+                    
+                    // Street address
+                    if let streetaddress = placeMark.addressDictionary!["Thoroughfare"] as? NSString {
+                        print(streetaddress)
+                        self.street = streetaddress as String
+                        uploadedVideo!["GPS"] = PFGeoPoint(latitude: latPost, longitude:longPost)
+                        uploadedVideo!["VideoFile"] = file
+                        uploadedVideo!["typeofPost"] = self.FriendsOrPublic
+                        uploadedVideo!["Thumbnail"] = fileThumbnail
+                        uploadedVideo!["User"] = PFUser.current()?.username
+                        uploadedVideo!["Location"] = self.street
+                        uploadedVideo!["Hour"] = hour
+                        uploadedVideo!["minutes"] = minutes
+                        print("gotthisfar")
+                        uploadedVideo!.saveInBackground()
+                        file!.saveInBackground { (success: Bool, error: Error?) -> Void in self.fileSaved()
+                            
+                        }
                     }
                     
-              
+                    // City
+                    if let city = placeMark.addressDictionary!["City"] as? NSString {
+                        print(city)
+                        self.whatcity = city as String
+                        
+                    }
+                })
             }
-                
-            
-        
-        }
-            
-        }else {
-            print("not equal")
-        }
-        
-        //markerLat = lat.roundToPlaces(6)
-        //markerLong = long.roundToPlaces(6)
-        //self.marker = GMSMarker(position: markers[2])
-            
-            
-        return true
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func snapNext(_ sender: AnyObject) {
-        if self.z != 1{
-            x = x! + 1
-            var count = markers.count
-            print("This is the markers count: \(markers.count)")
-            print(x)
-            if x < markers.count {
-            
-            self.viewMap.camera = GMSCameraPosition.camera(withTarget: self.markers[x!], zoom: 16.9)
-            } else {
-                self.viewMap.camera = self.camera!
-                x = 0
-            }
-            //viewMap.camera = marker.userData[0]
-        }else{
-            self.viewMap.camera = self.camera!
-
-        }
-        var count = 0
-        if markers.count > 3 {
-        while count < 3 {
-            
-                
-            self.marker = GMSMarker(position: markers[x!])
-            print(self.marker)
-            print(markers[x!])
-            //downloadVideo(marker)
-            count = count + 1
-            
-            
-        }
-        }else if markers.count == 3 {
-            
-                
-                
-                self.marker = GMSMarker(position: markers[2])
-                print(self.marker)
-                print(markers[2])
-                //downloadVideo(marker)
-                self.marker = GMSMarker(position: markers[1])
-                print(self.marker)
-                print(markers[1])
-                //downloadVideo(marker)
-                self.marker = GMSMarker(position: markers[0])
-                print(self.marker)
-                print(markers[0])
-                //downloadVideo(marker)
-            
-            
-        }else if markers.count == 2{
-            self.marker = GMSMarker(position: markers[1])
-            print(self.marker)
-            print(markers[1])
-            //downloadVideo(marker)
-            self.marker = GMSMarker(position: markers[0])
-            print(self.marker)
-            print(markers[0])
-            //downloadVideo(marker)
-        
-        
-        }else if markers.count == 1 {
-            self.marker = GMSMarker(position: markers[0])
-            print(self.marker)
-            print(markers[0])
-            //downloadVideo(marker)
-        }else {
-            
-        }
-
-        
-    }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
-        if (segue.identifier == "playerSegue") {
-                        let svc = segue.destination as! PlayVideoViewController
-                        svc.MarkerLat = markerLat
-                        svc.MarkerLong = markerLong
-                        svc.MarkerNum = x!
-                        //            print("Variables saved")
-                        //            //svc.VideoData = videoData
-                        svc.Url = downloadedurl
-                        svc.MP4 = mp4
-                        svc.streetname = streetName
-                        svc.minutes = minutes
-                        svc.hour = hour
-                        svc.userofVideo = userofVideo
-            
-                        print(url)
-            
-        }
-    }
-    
-   /* func thumbWithSideOfLength(length: Float) -> UIImage {
-    
-        
-        
-        var fileManager: NSFileManager = NSFileManager.defaultManager()
-        
-       
-            //couldn’t find a previously created thumb image so create one first…
-            var mainImage: UIImage = self.thumbnail!
-            var mainImageView: UIImageView = UIImageView(image: self.thumbnail)
-            var widthGreaterThanHeight: Bool = (mainImage.size.width > mainImage.size.height)
-            var sideFull: Float = ((widthGreaterThanHeight), mainImage.size.height, mainImage.size.width)
-            var clippedRect: CGRect = CGRectMake(0, 0, sideFull, sideFull)
-            //creating a square context the size of the final image which we will then
-            // manipulate and transform before drawing in the original image
-            UIGraphicsBeginImageContext(CGSizeMake)
-            var currentContext: CGContextRef = UIGraphicsGetCurrentContext()!
-            CGContextClipToRect(currentContext, clippedRect)
-            var scaleFactor: CGFloat = length / sideFull
-        
-            mainImage.size.width
-        
-        
-        
-    }
-    //a portfolio image – make context shift the original image upwards when drawn into the context
-    func CGContextTranslateCTM() {
-        mainImage.size.height
-    }
-    //this will automatically scale any CGImage down/up to the required thumbnail side (length) when the CGImage gets drawn into the context on the next line of code
-    */
-    func thumbnailForVideoAtURL(_ url: URL) -> UIImage? {
-        
-        let asset = AVAsset(url: url)
-        let assetImageGenerator = AVAssetImageGenerator(asset: asset)
-        
-        var time = asset.duration
-        time.value = min(time.value, 2)
-        
-        do {
-            let imageRef = try assetImageGenerator.copyCGImage(at: time, actualTime: nil)
-            return UIImage(cgImage: imageRef)
-        } catch {
-            print("error")
-            return nil
         }
     }
     

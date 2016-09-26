@@ -1,0 +1,756 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		459993026EA23D177AB49F05 /* Pods_LiViD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FF79233E29A534E02BAFF6 /* Pods_LiViD.framework */; };
+		466F27601D996B11001A9D5A /* MapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466F275F1D996B11001A9D5A /* MapHelper.swift */; };
+		C98570B11D91ED5B0057FF49 /* TableCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98570B01D91ED5B0057FF49 /* TableCellTableViewCell.swift */; };
+		C98570B31D91F30D0057FF49 /* AcceptFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98570B21D91F30D0057FF49 /* AcceptFriendsViewController.swift */; };
+		C98570B51D91F31D0057FF49 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98570B41D91F31D0057FF49 /* FriendsListViewController.swift */; };
+		D9052E691D2EF87700BDB466 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9052E681D2EF87700BDB466 /* FriendsViewController.swift */; };
+		D907F5241D5265DE00D77658 /* PlayBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D907F5231D5265DE00D77658 /* PlayBackViewController.swift */; };
+		D92092AB1CFA61A700E38CB1 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92092AA1CFA61A700E38CB1 /* CameraView.swift */; };
+		D97CAEE71D06704D0007CDF9 /* noun_37752_cc.png in Resources */ = {isa = PBXBuildFile; fileRef = D97CAEE61D06704D0007CDF9 /* noun_37752_cc.png */; };
+		D97CAEE91D06710F0007CDF9 /* noun_105506_cc.png in Resources */ = {isa = PBXBuildFile; fileRef = D97CAEE81D06710F0007CDF9 /* noun_105506_cc.png */; };
+		D97CAEEB1D1378310007CDF9 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97CAEEA1D1378310007CDF9 /* PostViewController.swift */; };
+		D98B8D6F1D1BA90600193597 /* PlayVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98B8D6E1D1BA90600193597 /* PlayVideoViewController.swift */; };
+		D9AD86C31CF6CB3E0068D00D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AD86C21CF6CB3E0068D00D /* AppDelegate.swift */; };
+		D9AD86C51CF6CB3E0068D00D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AD86C41CF6CB3E0068D00D /* ViewController.swift */; };
+		D9AD86C81CF6CB3E0068D00D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9AD86C61CF6CB3E0068D00D /* Main.storyboard */; };
+		D9AD86CA1CF6CB3E0068D00D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9AD86C91CF6CB3E0068D00D /* Assets.xcassets */; };
+		D9AD86CD1CF6CB3E0068D00D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9AD86CB1CF6CB3E0068D00D /* LaunchScreen.storyboard */; };
+		D9AD86D81CF6CB3E0068D00D /* LiViDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AD86D71CF6CB3E0068D00D /* LiViDTests.swift */; };
+		D9AD86E31CF6CB3E0068D00D /* LiViDUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AD86E21CF6CB3E0068D00D /* LiViDUITests.swift */; };
+		D9FAA00B1D23464A00275D3F /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FAA00A1D23464A00275D3F /* LogInViewController.swift */; };
+		D9FAA00D1D2348A300275D3F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FAA00C1D2348A300275D3F /* SignUpViewController.swift */; };
+		D9FE289C1D34C32600709E75 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FE289B1D34C32600709E75 /* SettingsViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D9AD86D41CF6CB3E0068D00D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9AD86B71CF6CB3E0068D00D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D9AD86BE1CF6CB3E0068D00D;
+			remoteInfo = LiViD;
+		};
+		D9AD86DF1CF6CB3E0068D00D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9AD86B71CF6CB3E0068D00D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D9AD86BE1CF6CB3E0068D00D;
+			remoteInfo = LiViD;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02FF79233E29A534E02BAFF6 /* Pods_LiViD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiViD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		466F275F1D996B11001A9D5A /* MapHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapHelper.swift; sourceTree = "<group>"; };
+		94CDF69C17F4D41C187D6915 /* Pods-LiViD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiViD.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiViD/Pods-LiViD.release.xcconfig"; sourceTree = "<group>"; };
+		C98570B01D91ED5B0057FF49 /* TableCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCellTableViewCell.swift; sourceTree = "<group>"; };
+		C98570B21D91F30D0057FF49 /* AcceptFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptFriendsViewController.swift; sourceTree = "<group>"; };
+		C98570B41D91F31D0057FF49 /* FriendsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
+		D9052E681D2EF87700BDB466 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		D907F5231D5265DE00D77658 /* PlayBackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayBackViewController.swift; sourceTree = "<group>"; };
+		D9167C871D03869E00FE0C83 /* LiViD-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiViD-Bridging-Header.h"; sourceTree = "<group>"; };
+		D92092AA1CFA61A700E38CB1 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		D97CAEE61D06704D0007CDF9 /* noun_37752_cc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noun_37752_cc.png; sourceTree = "<group>"; };
+		D97CAEE81D06710F0007CDF9 /* noun_105506_cc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noun_105506_cc.png; sourceTree = "<group>"; };
+		D97CAEEA1D1378310007CDF9 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		D98B8D6E1D1BA90600193597 /* PlayVideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayVideoViewController.swift; sourceTree = "<group>"; };
+		D9AD86BF1CF6CB3E0068D00D /* LiViD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiViD.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9AD86C21CF6CB3E0068D00D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D9AD86C41CF6CB3E0068D00D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D9AD86C71CF6CB3E0068D00D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D9AD86C91CF6CB3E0068D00D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D9AD86CC1CF6CB3E0068D00D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D9AD86CE1CF6CB3E0068D00D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9AD86D31CF6CB3E0068D00D /* LiViDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiViDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9AD86D71CF6CB3E0068D00D /* LiViDTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiViDTests.swift; sourceTree = "<group>"; };
+		D9AD86D91CF6CB3E0068D00D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9AD86DE1CF6CB3E0068D00D /* LiViDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiViDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9AD86E21CF6CB3E0068D00D /* LiViDUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiViDUITests.swift; sourceTree = "<group>"; };
+		D9AD86E41CF6CB3E0068D00D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9FAA00A1D23464A00275D3F /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		D9FAA00C1D2348A300275D3F /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		D9FE289B1D34C32600709E75 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		FAFFB40CB1B77B204E79B0A5 /* Pods-LiViD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiViD.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiViD/Pods-LiViD.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D9AD86BC1CF6CB3E0068D00D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				459993026EA23D177AB49F05 /* Pods_LiViD.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9AD86D01CF6CB3E0068D00D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9AD86DB1CF6CB3E0068D00D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		466F275C1D9969A0001A9D5A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				466F275F1D996B11001A9D5A /* MapHelper.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		466F27611D997C64001A9D5A /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D9AD86C41CF6CB3E0068D00D /* ViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		7E9CCE3FAC37C22B35BF49B7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				02FF79233E29A534E02BAFF6 /* Pods_LiViD.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		974E76EE07481279F6E7A82F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FAFFB40CB1B77B204E79B0A5 /* Pods-LiViD.debug.xcconfig */,
+				94CDF69C17F4D41C187D6915 /* Pods-LiViD.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D97CAEE51D0670340007CDF9 /* Artwork */ = {
+			isa = PBXGroup;
+			children = (
+				D97CAEE61D06704D0007CDF9 /* noun_37752_cc.png */,
+				D97CAEE81D06710F0007CDF9 /* noun_105506_cc.png */,
+			);
+			name = Artwork;
+			sourceTree = "<group>";
+		};
+		D9AD86B61CF6CB3E0068D00D = {
+			isa = PBXGroup;
+			children = (
+				D97CAEE51D0670340007CDF9 /* Artwork */,
+				D9AD86C11CF6CB3E0068D00D /* LiViD */,
+				D9AD86D61CF6CB3E0068D00D /* LiViDTests */,
+				D9AD86E11CF6CB3E0068D00D /* LiViDUITests */,
+				D9AD86C01CF6CB3E0068D00D /* Products */,
+				974E76EE07481279F6E7A82F /* Pods */,
+				7E9CCE3FAC37C22B35BF49B7 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D9AD86C01CF6CB3E0068D00D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D9AD86BF1CF6CB3E0068D00D /* LiViD.app */,
+				D9AD86D31CF6CB3E0068D00D /* LiViDTests.xctest */,
+				D9AD86DE1CF6CB3E0068D00D /* LiViDUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D9AD86C11CF6CB3E0068D00D /* LiViD */ = {
+			isa = PBXGroup;
+			children = (
+				466F27611D997C64001A9D5A /* View Controllers */,
+				466F275C1D9969A0001A9D5A /* Helpers */,
+				D9AD86C21CF6CB3E0068D00D /* AppDelegate.swift */,
+				D907F5231D5265DE00D77658 /* PlayBackViewController.swift */,
+				D9167C871D03869E00FE0C83 /* LiViD-Bridging-Header.h */,
+				D98B8D6E1D1BA90600193597 /* PlayVideoViewController.swift */,
+				D9FAA00C1D2348A300275D3F /* SignUpViewController.swift */,
+				D9FE289B1D34C32600709E75 /* SettingsViewController.swift */,
+				D9AD86C61CF6CB3E0068D00D /* Main.storyboard */,
+				C98570B01D91ED5B0057FF49 /* TableCellTableViewCell.swift */,
+				D9052E681D2EF87700BDB466 /* FriendsViewController.swift */,
+				D9FAA00A1D23464A00275D3F /* LogInViewController.swift */,
+				C98570B21D91F30D0057FF49 /* AcceptFriendsViewController.swift */,
+				C98570B41D91F31D0057FF49 /* FriendsListViewController.swift */,
+				D92092AA1CFA61A700E38CB1 /* CameraView.swift */,
+				D97CAEEA1D1378310007CDF9 /* PostViewController.swift */,
+				D9AD86C91CF6CB3E0068D00D /* Assets.xcassets */,
+				D9AD86CB1CF6CB3E0068D00D /* LaunchScreen.storyboard */,
+				D9AD86CE1CF6CB3E0068D00D /* Info.plist */,
+			);
+			path = LiViD;
+			sourceTree = "<group>";
+		};
+		D9AD86D61CF6CB3E0068D00D /* LiViDTests */ = {
+			isa = PBXGroup;
+			children = (
+				D9AD86D71CF6CB3E0068D00D /* LiViDTests.swift */,
+				D9AD86D91CF6CB3E0068D00D /* Info.plist */,
+			);
+			path = LiViDTests;
+			sourceTree = "<group>";
+		};
+		D9AD86E11CF6CB3E0068D00D /* LiViDUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D9AD86E21CF6CB3E0068D00D /* LiViDUITests.swift */,
+				D9AD86E41CF6CB3E0068D00D /* Info.plist */,
+			);
+			path = LiViDUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D9AD86BE1CF6CB3E0068D00D /* LiViD */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9AD86E71CF6CB3E0068D00D /* Build configuration list for PBXNativeTarget "LiViD" */;
+			buildPhases = (
+				24F3DDEB2A62D82B519C5DDC /* 📦 Check Pods Manifest.lock */,
+				062339C3E371C1CCF1CE2C84 /* [CP] Check Pods Manifest.lock */,
+				D9AD86BB1CF6CB3E0068D00D /* Sources */,
+				D9AD86BC1CF6CB3E0068D00D /* Frameworks */,
+				D9AD86BD1CF6CB3E0068D00D /* Resources */,
+				B61805043159BBD1BA8C9F18 /* [CP] Embed Pods Frameworks */,
+				D40556400E5F46A1526F4B35 /* [CP] Copy Pods Resources */,
+				94574E2C56BDB440B9D75AC9 /* 📦 Embed Pods Frameworks */,
+				B1C7FFE533510632FA700C4C /* 📦 Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LiViD;
+			productName = LiViD;
+			productReference = D9AD86BF1CF6CB3E0068D00D /* LiViD.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D9AD86D21CF6CB3E0068D00D /* LiViDTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9AD86EA1CF6CB3E0068D00D /* Build configuration list for PBXNativeTarget "LiViDTests" */;
+			buildPhases = (
+				D9AD86CF1CF6CB3E0068D00D /* Sources */,
+				D9AD86D01CF6CB3E0068D00D /* Frameworks */,
+				D9AD86D11CF6CB3E0068D00D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D9AD86D51CF6CB3E0068D00D /* PBXTargetDependency */,
+			);
+			name = LiViDTests;
+			productName = LiViDTests;
+			productReference = D9AD86D31CF6CB3E0068D00D /* LiViDTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D9AD86DD1CF6CB3E0068D00D /* LiViDUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9AD86ED1CF6CB3E0068D00D /* Build configuration list for PBXNativeTarget "LiViDUITests" */;
+			buildPhases = (
+				D9AD86DA1CF6CB3E0068D00D /* Sources */,
+				D9AD86DB1CF6CB3E0068D00D /* Frameworks */,
+				D9AD86DC1CF6CB3E0068D00D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D9AD86E01CF6CB3E0068D00D /* PBXTargetDependency */,
+			);
+			name = LiViDUITests;
+			productName = LiViDUITests;
+			productReference = D9AD86DE1CF6CB3E0068D00D /* LiViDUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D9AD86B71CF6CB3E0068D00D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftMigration = 0730;
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "Matthew Carlson";
+				TargetAttributes = {
+					D9AD86BE1CF6CB3E0068D00D = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = RDT7K59Q4P;
+						LastSwiftMigration = 0800;
+					};
+					D9AD86D21CF6CB3E0068D00D = {
+						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
+						TestTargetID = D9AD86BE1CF6CB3E0068D00D;
+					};
+					D9AD86DD1CF6CB3E0068D00D = {
+						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
+						TestTargetID = D9AD86BE1CF6CB3E0068D00D;
+					};
+				};
+			};
+			buildConfigurationList = D9AD86BA1CF6CB3E0068D00D /* Build configuration list for PBXProject "LiViD" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D9AD86B61CF6CB3E0068D00D;
+			productRefGroup = D9AD86C01CF6CB3E0068D00D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D9AD86BE1CF6CB3E0068D00D /* LiViD */,
+				D9AD86D21CF6CB3E0068D00D /* LiViDTests */,
+				D9AD86DD1CF6CB3E0068D00D /* LiViDUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D9AD86BD1CF6CB3E0068D00D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D97CAEE91D06710F0007CDF9 /* noun_105506_cc.png in Resources */,
+				D9AD86CD1CF6CB3E0068D00D /* LaunchScreen.storyboard in Resources */,
+				D9AD86CA1CF6CB3E0068D00D /* Assets.xcassets in Resources */,
+				D9AD86C81CF6CB3E0068D00D /* Main.storyboard in Resources */,
+				D97CAEE71D06704D0007CDF9 /* noun_37752_cc.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9AD86D11CF6CB3E0068D00D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9AD86DC1CF6CB3E0068D00D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		062339C3E371C1CCF1CE2C84 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		24F3DDEB2A62D82B519C5DDC /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		94574E2C56BDB440B9D75AC9 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LiViD/Pods-LiViD-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B1C7FFE533510632FA700C4C /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LiViD/Pods-LiViD-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B61805043159BBD1BA8C9F18 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LiViD/Pods-LiViD-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D40556400E5F46A1526F4B35 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LiViD/Pods-LiViD-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D9AD86BB1CF6CB3E0068D00D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9052E691D2EF87700BDB466 /* FriendsViewController.swift in Sources */,
+				D97CAEEB1D1378310007CDF9 /* PostViewController.swift in Sources */,
+				C98570B31D91F30D0057FF49 /* AcceptFriendsViewController.swift in Sources */,
+				D9FAA00D1D2348A300275D3F /* SignUpViewController.swift in Sources */,
+				D92092AB1CFA61A700E38CB1 /* CameraView.swift in Sources */,
+				D9FAA00B1D23464A00275D3F /* LogInViewController.swift in Sources */,
+				466F27601D996B11001A9D5A /* MapHelper.swift in Sources */,
+				D9AD86C51CF6CB3E0068D00D /* ViewController.swift in Sources */,
+				C98570B51D91F31D0057FF49 /* FriendsListViewController.swift in Sources */,
+				D98B8D6F1D1BA90600193597 /* PlayVideoViewController.swift in Sources */,
+				D9AD86C31CF6CB3E0068D00D /* AppDelegate.swift in Sources */,
+				D9FE289C1D34C32600709E75 /* SettingsViewController.swift in Sources */,
+				C98570B11D91ED5B0057FF49 /* TableCellTableViewCell.swift in Sources */,
+				D907F5241D5265DE00D77658 /* PlayBackViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9AD86CF1CF6CB3E0068D00D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9AD86D81CF6CB3E0068D00D /* LiViDTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9AD86DA1CF6CB3E0068D00D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9AD86E31CF6CB3E0068D00D /* LiViDUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D9AD86D51CF6CB3E0068D00D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D9AD86BE1CF6CB3E0068D00D /* LiViD */;
+			targetProxy = D9AD86D41CF6CB3E0068D00D /* PBXContainerItemProxy */;
+		};
+		D9AD86E01CF6CB3E0068D00D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D9AD86BE1CF6CB3E0068D00D /* LiViD */;
+			targetProxy = D9AD86DF1CF6CB3E0068D00D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D9AD86C61CF6CB3E0068D00D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9AD86C71CF6CB3E0068D00D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D9AD86CB1CF6CB3E0068D00D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9AD86CC1CF6CB3E0068D00D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D9AD86E51CF6CB3E0068D00D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/matthewcarlson/Library/Mobile\\ Documents/com~apple~CloudDocs/LiViD/LiViD";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USER_HEADER_SEARCH_PATHS = "Pods/**";
+			};
+			name = Debug;
+		};
+		D9AD86E61CF6CB3E0068D00D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/matthewcarlson/Library/Mobile\\ Documents/com~apple~CloudDocs/LiViD/LiViD";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				USER_HEADER_SEARCH_PATHS = "Pods/**";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D9AD86E81CF6CB3E0068D00D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FAFFB40CB1B77B204E79B0A5 /* Pods-LiViD.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = RDT7K59Q4P;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)/**";
+				INFOPLIST_FILE = LiViD/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Carlson.LiViD;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "./LiViD/LiViD-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "Pods/**";
+			};
+			name = Debug;
+		};
+		D9AD86E91CF6CB3E0068D00D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94CDF69C17F4D41C187D6915 /* Pods-LiViD.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = RDT7K59Q4P;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)/**";
+				INFOPLIST_FILE = LiViD/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Carlson.LiViD;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "./LiViD/LiViD-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "Pods/**";
+			};
+			name = Release;
+		};
+		D9AD86EB1CF6CB3E0068D00D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LiViDTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.waves.LiViDTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiViD.app/LiViD";
+			};
+			name = Debug;
+		};
+		D9AD86EC1CF6CB3E0068D00D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LiViDTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.waves.LiViDTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiViD.app/LiViD";
+			};
+			name = Release;
+		};
+		D9AD86EE1CF6CB3E0068D00D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LiViDUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.waves.LiViDUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = LiViD;
+			};
+			name = Debug;
+		};
+		D9AD86EF1CF6CB3E0068D00D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LiViDUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.waves.LiViDUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = LiViD;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D9AD86BA1CF6CB3E0068D00D /* Build configuration list for PBXProject "LiViD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9AD86E51CF6CB3E0068D00D /* Debug */,
+				D9AD86E61CF6CB3E0068D00D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9AD86E71CF6CB3E0068D00D /* Build configuration list for PBXNativeTarget "LiViD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9AD86E81CF6CB3E0068D00D /* Debug */,
+				D9AD86E91CF6CB3E0068D00D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9AD86EA1CF6CB3E0068D00D /* Build configuration list for PBXNativeTarget "LiViDTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9AD86EB1CF6CB3E0068D00D /* Debug */,
+				D9AD86EC1CF6CB3E0068D00D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9AD86ED1CF6CB3E0068D00D /* Build configuration list for PBXNativeTarget "LiViDUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9AD86EE1CF6CB3E0068D00D /* Debug */,
+				D9AD86EF1CF6CB3E0068D00D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D9AD86B71CF6CB3E0068D00D /* Project object */;
+}

@@ -30,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //initialize GoogleMaps
         GMSServices.provideAPIKey("AIzaSyAWcaZdfxxi3ulpyRK__k-6gBU_9discX0")
         
+        
+        
         //Hide status bar
         application.isStatusBarHidden = true
         return true
