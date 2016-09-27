@@ -51,6 +51,11 @@ extension UIImage{
     
 }
 
+func mbSizeWithData(data: Data) -> String {
+    let length = Double(data.count)/1024.0/1024.0
+    return String(length) 
+}
+
 func imageByCroppingImage(image : UIImage, size : CGSize) -> UIImage{
     var refWidth : CGFloat = CGFloat(image.cgImage!.width)
     var refHeight : CGFloat = CGFloat(image.cgImage!.height)
