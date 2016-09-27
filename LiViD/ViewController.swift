@@ -28,7 +28,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, UISearchBarDelegate {
     @IBOutlet weak var viewMap: GMSMapView!
     var placesClient: GMSPlacesClient?
     
@@ -85,16 +85,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     @IBOutlet weak var Friends: UIButton!
     @IBOutlet weak var MyCity: UIButton!
-
     
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let searchBar:UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 200, height: 20))
-        
+        searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 200, height: 20))
+       // searchBar.delegate = self
+        searchBar.showsSearchResultsButton = true
         searchBar.placeholder = "Your placeholder"
         let leftNavBarButton = UIBarButtonItem(customView:searchBar)
+        
         self.navigationItem.leftBarButtonItem = leftNavBarButton
         
         print("ran!")
@@ -699,6 +700,17 @@ extension ViewController {
             }
 //            let thumbnailData : Data = UIImageJPEGRepresentation(image!, 1)!
             
+            
+            
+            print("UPLOADING VIDEO, FILE SIZE: " + mbSizeWithData(data: videoData!))
+            
+            let compressedVideoData = try? videoData!.compress(algorithm: CompressionAlgorithm.zlib)
+            
+            if let compressedData = compressedVideoData {
+                print("SECOND COMPRESSION: " + mbSizeWithData(data: compressedData!))
+                
+    
+            }
             let file = PFFile(name: name, data: videoData!)
 //            let fileThumbnail = PFFile(name: "Thumbnail", data: thumbnailData)
 //            fileThumbnail?.saveInBackground()
@@ -769,4 +781,59 @@ extension ViewController {
         }
     }
     
+    
+    //MARK: SEARCH
+
+    func findLocationForPlacemark(placeMark: CLPlacemark) {
+
+        
+        let long: CLLocationDegrees = (placeMark.location?.coordinate.longitude)!
+        let lat : CLLocationDegrees = (placeMark.location?.coordinate.latitude)!
+
+        let camera = GMSCameraPosition.camera(withLatitude: lat,
+                                              longitude: long, zoom: 12)
+        viewMap.camera = camera
+
+    }
+    
+    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
+        let text = searchBar.text
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(text!) { (placemarks, error) in
+            if((error) != nil) {
+                print(error)
+                self.present(Alert.invalidLocationAlert(), animated: true, completion: nil)
+            } else if ((placemarks?.count)! > 0) {
+                let placemark = placemarks?.last
+                self.findLocationForPlacemark(placeMark: placemark!)
+            }
+        }
+        
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let text = searchBar.text
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(text!) { (placemarks, error) in
+            if((error) != nil || placemarks?.count == 0) {
+                print(error)
+                self.present(Alert.invalidLocationAlert(), animated: true, completion: nil)
+
+            } else if ((placemarks?.count)! > 0) {
+                let placemark = placemarks?.last
+                self.findLocationForPlacemark(placeMark: placemark!)
+            }
+        }
+        
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+    }
 }
+

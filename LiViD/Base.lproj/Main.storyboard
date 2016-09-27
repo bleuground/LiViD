@@ -15,7 +15,7 @@
         <scene sceneID="xcL-vF-f0u">
             <objects>
                 <navigationController navigationBarHidden="YES" id="egL-GV-fav" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="be9-dP-FlE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="be9-dP-FlE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -250,6 +250,9 @@
                             </button>
                             <searchBar contentMode="scaleToFill" searchBarStyle="minimal" text="" placeholder="Search by city or category " translatesAutoresizingMaskIntoConstraints="NO" id="8N6-uo-nqj">
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="F1x-WA-o8V" id="FoN-gA-XMe"/>
+                                </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hsz-g9-JcB">
                                 <constraints>
