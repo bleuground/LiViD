@@ -451,12 +451,35 @@ extension ViewController {
                             let long = postsLong.roundToPlaces(places: 6)
                             let position: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: lat, longitude:long)
                             
-                            self.marker = GMSMarker(position: position)
-                            let image = UIImage(named: "bubble.png")
-                            let backIcon = UIImage(data: UIImagePNGRepresentation(image!)!, scale:
-                                5)
+                            let markerTemp = GMSMarker(position: position)
+//
+//                            let image = UIImage(named: "bubble.png")
+//                            let backIcon = UIImage(data: UIImagePNGRepresentation(image!)!, scale:
+//                                5)
+//                            
+//                            markerTemp.icon = backIcon
+//                        
+                            let thumb = object.object(forKey: "Thumbnail") as! PFFile
+
+                            thumb.getDataInBackground(block: { (imageData, error) in
+                                if(imageData != nil) {
+                                    let image = UIImage(data: imageData!)
+                                 //   let resizedImage = resizeImage(image: image!, targetSize: CGSize(width: 30, height: 30))
+
+                                 //   markerTemp.icon = resizedImage
+                        
+                                    
+                                    let bubbleView = bubble(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 70, height: 70)))
+                                    bubbleView.setThumbnailImage(image: image!)
+                                    let final = UIImage.renderUIViewToImage(viewToBeRendered: bubbleView)
+                                    
+                                    markerTemp.icon = final
+                                    markerTemp.map = self.viewMap
+                                }
+                            })
+//
                             
-                            self.marker.icon = backIcon
+                            
                             //self.thumbnail == object.objectForKey("GPS")! as! PFFile
                             /*if 1 == 1 {
                              self.thumbnail?.getDataInBackgroundWithBlock({
@@ -485,7 +508,7 @@ extension ViewController {
                             self.markers.append(position)
                             self.markersID.append(objectId)
                             
-                            self.marker.map = self.viewMap
+                            markerTemp.map = self.viewMap
                             
                             y += 1
                             print(y)

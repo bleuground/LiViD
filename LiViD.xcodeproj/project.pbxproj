@@ -10,6 +10,8 @@
 		459993026EA23D177AB49F05 /* Pods_LiViD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FF79233E29A534E02BAFF6 /* Pods_LiViD.framework */; };
 		466F27601D996B11001A9D5A /* MapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466F275F1D996B11001A9D5A /* MapHelper.swift */; };
 		46A80D611D99B909005DF186 /* ParseDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A80D601D99B909005DF186 /* ParseDataManager.swift */; };
+		46A80D641D99C3D2005DF186 /* bubble.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46A80D631D99C3D2005DF186 /* bubble.xib */; };
+		46A80D681D99C6DC005DF186 /* bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A80D671D99C6DC005DF186 /* bubble.swift */; };
 		46D1EEE81D99A1F6006F674D /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D1EEE71D99A1F6006F674D /* CommonUtils.swift */; };
 		C98570B11D91ED5B0057FF49 /* TableCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98570B01D91ED5B0057FF49 /* TableCellTableViewCell.swift */; };
 		C98570B31D91F30D0057FF49 /* AcceptFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98570B21D91F30D0057FF49 /* AcceptFriendsViewController.swift */; };
@@ -54,6 +56,8 @@
 		02FF79233E29A534E02BAFF6 /* Pods_LiViD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiViD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		466F275F1D996B11001A9D5A /* MapHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapHelper.swift; sourceTree = "<group>"; };
 		46A80D601D99B909005DF186 /* ParseDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseDataManager.swift; sourceTree = "<group>"; };
+		46A80D631D99C3D2005DF186 /* bubble.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bubble.xib; sourceTree = "<group>"; };
+		46A80D671D99C6DC005DF186 /* bubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bubble.swift; sourceTree = "<group>"; };
 		46D1EEE71D99A1F6006F674D /* CommonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtils.swift; sourceTree = "<group>"; };
 		94CDF69C17F4D41C187D6915 /* Pods-LiViD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiViD.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiViD/Pods-LiViD.release.xcconfig"; sourceTree = "<group>"; };
 		C98570B01D91ED5B0057FF49 /* TableCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCellTableViewCell.swift; sourceTree = "<group>"; };
@@ -129,6 +133,15 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
+		46A80D621D99C3C0005DF186 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				46A80D671D99C6DC005DF186 /* bubble.swift */,
+				46A80D631D99C3D2005DF186 /* bubble.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		46D1EEE61D99A1D8006F674D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +202,7 @@
 		D9AD86C11CF6CB3E0068D00D /* LiViD */ = {
 			isa = PBXGroup;
 			children = (
+				46A80D621D99C3C0005DF186 /* Views */,
 				46D1EEE61D99A1D8006F674D /* Models */,
 				466F27611D997C64001A9D5A /* View Controllers */,
 				466F275C1D9969A0001A9D5A /* Helpers */,
@@ -349,6 +363,7 @@
 				D97CAEE91D06710F0007CDF9 /* noun_105506_cc.png in Resources */,
 				D9AD86CD1CF6CB3E0068D00D /* LaunchScreen.storyboard in Resources */,
 				D9AD86CA1CF6CB3E0068D00D /* Assets.xcassets in Resources */,
+				46A80D641D99C3D2005DF186 /* bubble.xib in Resources */,
 				D9AD86C81CF6CB3E0068D00D /* Main.storyboard in Resources */,
 				D97CAEE71D06704D0007CDF9 /* noun_37752_cc.png in Resources */,
 			);
@@ -474,6 +489,7 @@
 				D97CAEEB1D1378310007CDF9 /* PostViewController.swift in Sources */,
 				C98570B31D91F30D0057FF49 /* AcceptFriendsViewController.swift in Sources */,
 				D9FAA00D1D2348A300275D3F /* SignUpViewController.swift in Sources */,
+				46A80D681D99C6DC005DF186 /* bubble.swift in Sources */,
 				D92092AB1CFA61A700E38CB1 /* CameraView.swift in Sources */,
 				D9FAA00B1D23464A00275D3F /* LogInViewController.swift in Sources */,
 				466F27601D996B11001A9D5A /* MapHelper.swift in Sources */,
