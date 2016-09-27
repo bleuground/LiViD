@@ -689,11 +689,19 @@ extension ViewController {
             
             let url = UserDefaults.standard.url(forKey: "videoURL")
             let videoData = try? Data(contentsOf: url!)
-            let thumbnailData : Data = UIImageJPEGRepresentation(image!, 1)!
+            
+            var fileThumbnail : PFFile = PFFile(data: Data())!
+            
+            if let image =  image {
+                let thumbnailData : Data = UIImageJPEGRepresentation(image, 1)!
+                fileThumbnail = PFFile(name: "Thumbnail", data: thumbnailData)!
+                fileThumbnail.saveInBackground()
+            }
+//            let thumbnailData : Data = UIImageJPEGRepresentation(image!, 1)!
             
             let file = PFFile(name: name, data: videoData!)
-            let fileThumbnail = PFFile(name: "Thumbnail", data: thumbnailData)
-            fileThumbnail?.saveInBackground()
+//            let fileThumbnail = PFFile(name: "Thumbnail", data: thumbnailData)
+//            fileThumbnail?.saveInBackground()
             var uploadedVideo : PFObject?
             if let placeLikelihoods = placeLikelihoods {
                 for likelihood in placeLikelihoods.likelihoods {
