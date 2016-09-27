@@ -633,9 +633,32 @@ extension ViewController {
                         let long = postsLong.roundToPlaces(places: 6)
                         let position: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: lat, longitude:long)
                         
-                        self.marker.icon = UIImage(named: "bubble.png")
-                        self.marker = GMSMarker(position: position)
-                        self.marker.map = self.viewMap
+                        let markerTemp = GMSMarker(position: position)
+
+                        
+                        let thumb = object.object(forKey: "Thumbnail") as! PFFile
+                        
+                        thumb.getDataInBackground(block: { (imageData, error) in
+                            if(imageData != nil) {
+                                let image = UIImage(data: imageData!)
+                                //   let resizedImage = resizeImage(image: image!, targetSize: CGSize(width: 30, height: 30))
+                                
+                                //   markerTemp.icon = resizedImage
+                                
+                                
+                                let bubbleView = bubble(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 70, height: 70)))
+                                bubbleView.setThumbnailImage(image: image!)
+                                let final = UIImage.renderUIViewToImage(viewToBeRendered: bubbleView)
+                                
+                                markerTemp.icon = final
+                                markerTemp.map = self.viewMap
+                            }
+                        })
+//                        self.marker = GMSMarker(position: position)
+//                        self.marker.icon = UIImage(named: "bubble.png")
+//                        self.marker.map = self.viewMap
+//                        
+                        
                     }
                 }
             } else {
