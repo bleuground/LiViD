@@ -269,18 +269,64 @@ extension ViewController {
         }
     }
     
+    func areCoordinatesEqual(coordA: CLLocationCoordinate2D, coordB: CLLocationCoordinate2D) -> Bool {
+        let latEquality = coordA.latitude == coordB.latitude
+        let longEquality = coordA.longitude == coordB.longitude
+        
+        return latEquality && longEquality
+    }
+    
+    func getIndexForMarker(marker: CLLocationCoordinate2D) -> Int {
+        for index in 0...markers.count {
+            if(areCoordinatesEqual(coordA: marker, coordB: markers[index])) {
+                return index
+            }
+        }
+        
+        return 0
+    }
+    
     @objc(mapView:didTapMarker:) func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         if z == 0 {
             print("\(marker) tapped")
             
+            let lat = marker.position.latitude as Double
+            let long = marker.position.longitude as Double
             
             
-            var lat = marker.position.latitude as Double
-            var long = marker.position.longitude as Double
+            let tempMarker = getMarkerForLongAndLat(long: long, lat: lat, markers: markers)
+            let index = getIndexForMarker(marker: tempMarker)
             
-            if (markers[x!].latitude.roundToPlaces(places: 6) == lat.roundToPlaces(places: 6) && markers[x!].longitude.roundToPlaces(places: 6) == long.roundToPlaces(places: 6))
+            downloadVideo(self.markersID[index]) {
+                PFFile in
+                print(self.file)
+                
+                print("ran")
+                if self.file != nil {
+                    self.performSegue(withIdentifier: "playerSegue", sender: nil)
+                    print("a")
+                    self.file!.getDataInBackground(block: { (data, error) in
+                        if error == nil
+                        {
+                            self.mp4 = data
+                            print(data)
+                            print(self.mp4)
+                            print("a")
+                        }
+                    })
+                    
+                } else {
+                    print("not dispatched")
+                }
+            }
+        }
+        
+        /*
+            let qualifierA = markers[x!].latitude.roundToPlaces(places: 6) == lat.roundToPlaces(places: 6)
+            let qualifierB = markers[x!].longitude.roundToPlaces(places: 6) == long.roundToPlaces(places: 6)
+            if (qualifierA && qualifierB)
             {
-                downloadVideo(self.markersID[x!]) {
+                downloadVideo(self.markersID[index]) {
                     PFFile in
                     print(self.file)
                     
@@ -307,7 +353,7 @@ extension ViewController {
         } else {
             print("not equal")
         }
-        
+        */
         //markerLat = lat.roundToPlaces(6)
         //markerLong = long.roundToPlaces(6)
         //self.marker = GMSMarker(position: markers[2])
@@ -424,7 +470,7 @@ extension ViewController {
         //MyCity.image = UIImage(named: "")
         Friends.setImage(UIImage(named: "friendsbttn1"), for: UIControlState())
         MyCity.setImage(UIImage(named: "my_citybttn2"), for: UIControlState())
-        var query = PFQuery(className:"UploadedVideoCurrent")
+        let query = PFQuery(className:"UploadedVideoCurrent")
         
         self.group.enter();
         
@@ -702,15 +748,15 @@ extension ViewController {
             
             
             
-            print("UPLOADING VIDEO, FILE SIZE: " + mbSizeWithData(data: videoData!))
-            
-            let compressedVideoData = try? videoData!.compress(algorithm: CompressionAlgorithm.zlib)
-            
-            if let compressedData = compressedVideoData {
-                print("SECOND COMPRESSION: " + mbSizeWithData(data: compressedData!))
-                
-    
-            }
+//            print("UPLOADING VIDEO, FILE SIZE: " + mbSizeWithData(data: videoData!))
+//            
+//            let compressedVideoData = try? videoData!.compress(algorithm: CompressionAlgorithm.zlib)
+//            
+//            if let compressedData = compressedVideoData {
+//                print("SECOND COMPRESSION: " + mbSizeWithData(data: compressedData!))
+//                
+//    
+//            }
             let file = PFFile(name: name, data: videoData!)
 //            let fileThumbnail = PFFile(name: "Thumbnail", data: thumbnailData)
 //            fileThumbnail?.saveInBackground()

@@ -51,7 +51,11 @@ class CameraView: UIViewController,AVCaptureFileOutputRecordingDelegate {
     //MARK: - BEGIN SESSION
     func beginSession() {
         captureSession = AVCaptureSession()
-        captureSession?.sessionPreset = AVCaptureSessionPreset1920x1080
+        captureSession?.sessionPreset = AVCaptureSessionPresetHigh // 0.139 -> 1.377, 0.378 -> 1.3764
+        //captureSession?.sessionPreset = AVCaptureSessionPresetHigh // 1.89 -> 1.0
+    //    captureSession?.sessionPreset = AVCaptureSessionPreset1280x720 // 1.4
+        
+    //    captureSession?.sessionPreset = AVCaptureSessionPreset1920x1080 //1 sec video:  1.8181734085083
         captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         
         //        let backCamera = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
@@ -161,12 +165,26 @@ class CameraView: UIViewController,AVCaptureFileOutputRecordingDelegate {
     //MARK: - Compress Video
     func compressVideo(_ inputURL: URL, outputURL: URL, handler:@escaping (_ session: AVAssetExportSession)-> Void)
     {
-        /*var settings: [NSObject : AnyObject] = [AVVideoCodecKey: AVVideoCodecH264, AVVideoWidthKey: 1080, AVVideoHeightKey: 1920, AVVideoCompressionPropertiesKey: [AVVideoAverageBitRateKey: 100, AVVideoProfileLevelKey: .Main31, AVVideoMaxKeyFrameIntervalKey: 30]]
-        var writer_input: AVAssetWriterInput = AVAssetWriterInput.assetWriterInputWithMediaType(AVMediaTypeVideo, outputSettings: )*/
+        let settings: [String: Any] = [(AVVideoCodecKey as NSString) as String : AVVideoCodecH264 as NSString
+            , (AVVideoWidthKey as NSString) as String: 1080 as AnyObject ,
+              (AVVideoHeightKey as NSString) as String: 1920 as AnyObject,
+              (AVVideoCompressionPropertiesKey as NSString) as String : [AVVideoAverageBitRateKey as NSString: 100,
+                                                             AVVideoProfileLevelKey as NSString: AVVideoProfileLevelH264Main31, AVVideoMaxKeyFrameIntervalKey as NSString: 30]]
+        
+        
+        let writer_input: AVAssetWriterInput = AVAssetWriterInput(mediaType: AVMediaTypeVideo, outputSettings: settings)
+//        writer_input.requestMediaDataWhenReady(on: ) {
+//            
+//        }
+        do{
+            let fileLocation = URL(fileURLWithPath: inputURL.path)
+            let videoData = try Data(contentsOf: fileLocation)
+            print(" \n BEFORE COMPRESSION: " + mbSizeWithData(data: videoData) + "\n")
+        } catch {}
         
         let urlAsset = AVURLAsset(url: inputURL, options: nil)
         
-        let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPresetMediumQuality)
+        let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPresetHighestQuality)
         
         exportSession!.outputURL = outputURL
         
@@ -268,9 +286,6 @@ class CameraView: UIViewController,AVCaptureFileOutputRecordingDelegate {
         }
         return AVCaptureDevice()
     }
-    
-    
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
         if (segue.identifier == "segueTest") {
@@ -404,6 +419,10 @@ class CameraView: UIViewController,AVCaptureFileOutputRecordingDelegate {
         self.compressVideo(self.url!, outputURL: outputURl, handler: { (session) in
             if session.status == AVAssetExportSessionStatus.completed
             {
+                //DEBUG :
+                let tempData = try? Data(contentsOf: outputURl)
+                print("\n AFTER COMPRESSION: " + mbSizeWithData(data: tempData!) + "\n")
+                
                 self.url! = outputURl
                 print(self.url)
                 let data = try? Data(contentsOf: self.url!)

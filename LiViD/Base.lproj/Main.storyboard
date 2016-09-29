@@ -15,7 +15,7 @@
         <scene sceneID="xcL-vF-f0u">
             <objects>
                 <navigationController navigationBarHidden="YES" id="egL-GV-fav" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="be9-dP-FlE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="be9-dP-FlE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1083,7 +1083,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="O7D-yg-eOR"/>
-        <segue reference="Yue-w0-PKh"/>
+        <segue reference="TQZ-3F-p5e"/>
         <segue reference="neI-0u-czu"/>
         <segue reference="6ou-sd-irb"/>
     </inferredMetricsTieBreakers>

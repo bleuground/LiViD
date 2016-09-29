@@ -106,6 +106,22 @@ class Alert: NSObject {
         delegate.present(alert, animated: true, completion: nil)
     }
     
+    class func invalidLocationAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "Invalid Location", message: "The Location entered could not be found", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        return alert 
+    }
     
+    
+}
+
+func getMarkerForLongAndLat(long: Double, lat: Double, markers: [CLLocationCoordinate2D]) -> CLLocationCoordinate2D {
+    for marker in markers {
+        if(marker.longitude == long && marker.latitude == lat) {
+            return marker
+        }
+    }
+    
+    return CLLocationCoordinate2D()
 }
 

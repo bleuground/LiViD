@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //initialize GoogleMaps
         GMSServices.provideAPIKey("AIzaSyAWcaZdfxxi3ulpyRK__k-6gBU_9discX0")
         
-        
+    //    try? PFCloud.callFunction("deleteOldPosts", withParameters: [:])
         
         //Hide status bar
         application.isStatusBarHidden = true
